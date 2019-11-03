@@ -1,0 +1,62 @@
+$key_size: 32px;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.textarea {
+  width: 900px;
+  height: 300px;
+  margin: 20px auto;
+  background-color: #e0fffa;
+}
+
+.keyboard {
+  padding: 5px;
+  margin: 0 auto;
+  background-color: rgb(197, 197, 197);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(31, $key_size);
+  grid-template-rows: repeat(5, $key_size*2);
+  grid-gap: 5px;
+  .btn {
+    background-color: rgb(243, 243, 243);
+    border: 2px solid black;
+    border-radius: 5px;
+    grid-column: span 2;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 17px;
+    &:hover {
+      border: 1px solid #eee;
+    }
+    &[keycode=Backspace] {
+      grid-column: span 5;
+    }
+    &[keycode=Tab] {
+      grid-column: span 3;
+    }
+    &[keycode=CapsLock] {
+      grid-column: span 4;
+    }
+    &[keycode=Enter] {
+      grid-column: span 5;
+    }
+    &[keycode=ShiftLeft] {
+      grid-column: span 5;
+    }
+    &[keycode=ShiftRight] {
+      grid-column: span 4;
+    }
+    &[keycode=Win] {
+      grid-column: span 3;
+    }
+    &[keycode=Space] {
+      grid-column: span 13;
+    }
+    &[keycode=ControlLeft] {
+      grid-column: span 3;
+    }
+  }
+}

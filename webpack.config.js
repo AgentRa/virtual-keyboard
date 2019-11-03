@@ -63,12 +63,12 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
-        options: {
-          emitError: true,
-          emitWarning: true,
-          failOnError: true,
-          failOnWarning: true,
-        },
+        // options: {
+        //   emitError: true,
+        //   emitWarning: true,
+        //   failOnError: true,
+        //   failOnWarning: true,
+        // },
       },
       {
         test: /\.js$/,
