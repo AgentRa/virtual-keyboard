@@ -1,4 +1,25 @@
 $key_size: 32px;
+@mixin button () {
+  & {
+
+    &:hover:not(:active) {
+      box-shadow:
+              0 0 3px rgba(0,0,0,0) inset,
+              0 1px 1px 1px rgba(0,255,255,.5),
+              0 -1px 1px 1px rgba(0,255,255,.5);
+      cursor: pointer;
+    }
+
+    &:active {
+      background: linear-gradient(rgb(250,250,250), rgb(150,160,170));
+      box-shadow:
+              0 0 3px rgba(0,0,0,.5) inset,
+              0 1px 1px 1px rgba(255,255,255,.4),
+              0 -1px 1px 1px rgba(0,0,0,.1);
+      color: black;
+    }
+  }
+}
 
 .wrapper {
   display: flex;
@@ -9,6 +30,7 @@ $key_size: 32px;
   height: 300px;
   margin: 20px auto;
   background-color: #e0fffa;
+  font-size: 20px;
 }
 
 .keyboard {
@@ -28,6 +50,9 @@ $key_size: 32px;
     font-size: 20px;
     text-align: center;
     padding-top: 17px;
+    user-select: none;
+    font-family: sans-serif;
+    @include button();
     &:hover {
       border: 1px solid #eee;
     }
@@ -49,7 +74,7 @@ $key_size: 32px;
     &[keycode=ShiftRight] {
       grid-column: span 4;
     }
-    &[keycode=Win] {
+    &[keycode=MetaLeft] {
       grid-column: span 3;
     }
     &[keycode=Space] {
