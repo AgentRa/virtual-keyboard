@@ -4,6 +4,7 @@ import keys from './keys';
 
 const appState = {
   lang: 'en',
+  shiftFlag: 'off',
 };
 
 function drawBoard() {
@@ -30,16 +31,52 @@ drawBoard();
 
 
 document.addEventListener('keydown', (event) => {
+  const keyboard = document.body.querySelector('.keyboard');
   const button = keys.find((btn) => btn.code === event.code);
-  document.querySelector(`div[keycode=${button.code}]`).style.background = 'linear-gradient(rgb(250, 250, 250), rgb(150, 160, 170))';
+  const key = document.querySelector(`div[keycode=${button.code}]`);
+  console.log(button.en.length);
+  key.style.background = 'linear-gradient(rgb(250, 250, 250), rgb(150, 160, 170))';
   if (button[appState.lang].length === 1) {
-    document.body.querySelector('textarea').insertAdjacentText('beforeend', `${button[appState.lang]}`);
+    document.body.querySelector('textarea').insertAdjacentText('beforeend', `${key.innerText}`);
+  }
+  switch (button.code) {
+    case 'CapsLock':
+      // eslint-disable-next-line no-unused-expressions
+      keyboard.style.textTransform !== 'capitalize'
+        ? keyboard.style.textTransform = 'capitalize'
+        : keyboard.style.textTransform = 'none';
+      break;
+    case 'ShiftRight':
+    case 'ShiftLeft':
+      // eslint-disable-next-line no-unused-expressions
+      if (appState.shiftFlag === 'off') {
+        appState.shiftFlag = 'on';
+        // eslint-disable-next-line no-unused-expressions
+        (document.querySelector('div[keycode=KeyA').innerText.charCodeAt() < 97)
+          ? keyboard.style.textTransform = 'none'
+          : keyboard.style.textTransform = 'capitalize';
+      }
+      break;
+    default:
+      break;
   }
 });
 
 document.addEventListener('keyup', (event) => {
+  // eslint-disable-next-line no-unused-vars
+  const keyboard = document.body.querySelector('.keyboard');
   const button = keys.find((btn) => btn.code === event.code);
-  document.querySelector(`div[keycode=${button.code}]`).style.background = 'rgb(243, 243, 243)';
+  const key = document.querySelector(`div[keycode=${button.code}]`);
+  key.style.background = 'rgb(243, 243, 243)';
+  console.log(button.code);
+  // eslint-disable-next-line no-unused-expressions
+  if (button.code === 'ShiftLeft' || button.code === 'ShiftRight') {
+    appState.shiftFlag = 'off';
+    // eslint-disable-next-line no-unused-expressions
+    (document.querySelector('div[keycode=KeyA').innerText.charCodeAt() < 97)
+      ? keyboard.style.textTransform = 'none'
+      : keyboard.style.textTransform = 'capitalize';
+  }
 });
 
 document.querySelector('.keyboard').addEventListener('click', (event) => {
@@ -48,9 +85,10 @@ document.querySelector('.keyboard').addEventListener('click', (event) => {
   }
 });
 
-document.addEventListener('keydown', (event) => {
-  const button = keys.find((btn) => btn.code === event.code);
-  if (button.code === 'CapsLock' && document.body.querySelector('.keyboard').style.textTransform !== 'capitalize') {
-    document.body.querySelector('.keyboard').style.textTransform = 'capitalize';
-  } else document.body.querySelector('.keyboard').style.textTransform = 'none';
-});
+// document.addEventListener('keydown', (event) => {
+//   const button = keys.find((btn) => btn.code === event.code);
+// eslint-disable-next-line max-len
+//   if (button.code === 'CapsLock' && document.body.querySelector('.keyboard').style.textTransform !== 'capitalize') {
+//     document.body.querySelector('.keyboard').style.textTransform = 'capitalize';
+//   } else document.body.querySelector('.keyboard').style.textTransform = 'none';
+// });

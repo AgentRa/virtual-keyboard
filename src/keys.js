@@ -28,7 +28,7 @@ const keys = [
   { code: 'BracketRight', ru: 'ъ', en: ']' },
   { code: 'Backslash', ru: '\\', en: '\\' },
   { code: 'Delete', ru: 'Del', en: 'Del' },
-  { code: 'CapsLock', ru: 'Caps lock', en: 'Caps lock' },
+  { code: 'CapsLock', ru: 'Caps Lock', en: 'Caps Lock' },
   { code: 'KeyA', ru: 'ф', en: 'a' },
   { code: 'KeyS', ru: 'ы', en: 's' },
   { code: 'KeyD', ru: 'в', en: 'd' },
