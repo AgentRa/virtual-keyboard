@@ -107,5 +107,4 @@ const keys = [
   { code: 'ControlRight', ru: 'Ctrl', en: 'Ctrl' },
 ];
 
-
 export default keys;
