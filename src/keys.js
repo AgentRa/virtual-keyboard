@@ -99,7 +99,7 @@ const keys = [
   { code: 'ControlLeft', ru: 'Ctrl', en: 'Ctrl' },
   { code: 'MetaLeft', ru: 'Win', en: 'Win' },
   { code: 'AltLeft', ru: 'Alt', en: 'Alt' },
-  { code: 'Space', ru: ' ', en: ' ' },
+  { code: 'Space', ru: 'Space', en: 'Space' },
   { code: 'AltRight', ru: 'Alt', en: 'Alt' },
   { code: 'ArrowLeft', ru: '←', en: '←' },
   { code: 'ArrowDown', ru: '↓', en: '↓' },

@@ -6,6 +6,11 @@ const appState = {
   lang: 'ru',
   shiftFlag: 'off',
 };
+
+if (localStorage.getItem('lang') !== null) {
+  appState.lang = localStorage.getItem('lang');
+}
+
 const div = document.createElement('div');
 div.className = 'wrapper';
 document.body.append(div);
@@ -21,12 +26,13 @@ function drawBoard() {
   for (const key in keys) {
     const btn = document.createElement('div');
     btn.className = 'btn';
+    console.log(appState.lang);
     btn.innerText = appState.lang === 'en' ? keys[key].en : keys[key].ru;
     btn.setAttribute('keyCode', keys[key].code);
     keyboard.appendChild(btn);
   }
 }
-drawBoard();
+setTimeout(drawBoard(), 15000);
 
 function shift() {
   if (document.querySelector('div[keycode=KeyA').innerText.charCodeAt() === 97
@@ -75,6 +81,9 @@ document.addEventListener('keydown', (event) => {
       text.value += '  ';
       console.log(appState.lang);
       break;
+    case 'Space':
+      text.value += ' ';
+      break;
     case 'Backspace':
       // eslint-disable-next-line no-case-declarations,no-unused-vars
       const string = document.querySelector('textarea');
@@ -104,8 +113,8 @@ document.querySelector('.keyboard').addEventListener('click', (event) => {
     text.value += `${event.target.innerText}`;
   }
   const button = keys.find((btn) => btn.en === event.target.innerText);
-  switch (button.en) {
-    case 'Caps Lock':
+  switch (button.code) {
+    case 'CapsLock':
       // eslint-disable-next-line no-unused-expressions
       keyboard.style.textTransform !== 'capitalize'
         ? keyboard.style.textTransform = 'capitalize'
@@ -119,6 +128,9 @@ document.querySelector('.keyboard').addEventListener('click', (event) => {
       // eslint-disable-next-line no-case-declarations,no-unused-vars
       const string = document.querySelector('textarea');
       string.value = string.value.substr(0, string.value.length - 1);
+      break;
+    case 'Space':
+      text.value += ' ';
       break;
     case 'Enter':
       text.value += '\n';
@@ -160,18 +172,12 @@ function runOnKeys(func, ...codes) {
         return;
       }
     }
-
-    // да, все
-
-    // во время показа alert, если посетитель отпустит клавиши - не возникнет keyup
-    // при этом JavaScript "пропустит" факт отпускания клавиш, а pressed[keyCode] останется true
-    // чтобы избежать "залипания" клавиши -- обнуляем статус всех клавиш, пусть нажимает всё заново
-
     pressed.clear();
     // eslint-disable-next-line no-unused-expressions
     func() === 'ru' ? appState.lang = 'en' : appState.lang = 'ru';
     keyboard.innerHTML = '';
     drawBoard();
+    localStorage.setItem('lang', appState.lang);
   });
 
   document.addEventListener('keyup', (event) => {
@@ -182,5 +188,20 @@ function runOnKeys(func, ...codes) {
 runOnKeys(
   () => appState.lang,
   'ControlLeft',
+  'AltLeft',
+);
+runOnKeys(
+  () => appState.lang,
+  'ControlRight',
+  'AltRight',
+);
+runOnKeys(
+  () => appState.lang,
+  'ControlLeft',
+  'AltRight',
+);
+runOnKeys(
+  () => appState.lang,
+  'ControlRight',
   'AltLeft',
 );
