@@ -7,7 +7,7 @@ export default class EventInjector {
 
   onKeyDown(event) {
     const {
-      keyboard, state, shift, text,
+      keyboard, state, text,
     } = this.ctrl;
     const button = keys.find((btn) => btn.code === event.code);
     const key = document.querySelector(`div[keycode=${button.code}]`);
@@ -25,7 +25,7 @@ export default class EventInjector {
       case 'ShiftLeft':
         if (state.shiftFlag === 'off') {
           state.shiftFlag = 'on';
-          shift();
+          this.ctrl.shift();
         }
         break;
       case 'Tab':
@@ -47,13 +47,13 @@ export default class EventInjector {
   }
 
   onKeyUp(event) {
-    const { state, shift } = this.ctrl;
+    const { state } = this.ctrl;
     const button = keys.find((btn) => btn.code === event.code);
     const key = document.querySelector(`div[keycode=${button.code}]`);
     key.style.background = 'rgb(243, 243, 243)';
     if (button.en === 'Shift') {
       state.shiftFlag = 'off';
-      shift();
+      this.ctrl.shift();
     }
   }
 
@@ -88,27 +88,27 @@ export default class EventInjector {
   }
 
   onMouseDown(event) {
-    const { state, shift } = this.ctrl;
+    const { state } = this.ctrl;
     const button = keys.find((btn) => btn.en === event.target.innerText);
     if (button.en === 'Shift') {
       if (state.shiftFlag === 'off') {
         state.shiftFlag = 'on';
-        shift();
+        this.ctrl.shift();
       }
     }
   }
 
   onMouseUp(event) {
-    const { state, shift } = this.ctrl;
+    const { state } = this.ctrl;
     const button = keys.find((btn) => btn.en === event.target.innerText);
     if (button.code === 'ShiftRight' || button.code === 'ShiftLeft') {
       state.shiftFlag = 'off';
-      shift();
+      this.ctrl.shift();
     }
   }
 
   runOnKeys(codes) {
-    const { state, keyboard, drawBoard } = this.ctrl;
+    const { state, keyboard } = this.ctrl;
     const pressed = new Set();
 
     document.addEventListener('keydown', (event) => {
@@ -123,7 +123,7 @@ export default class EventInjector {
       pressed.clear();
       state.lang = state.lang === 'ru' ? 'en' : 'ru';
       keyboard.innerHTML = '';
-      drawBoard();
+      this.ctrl.drawBoard();
       localStorage.setItem('lang', state.lang);
     });
 
